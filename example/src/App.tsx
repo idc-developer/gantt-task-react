@@ -1,8 +1,9 @@
 import React from "react";
-import { Task, ViewMode, Gantt } from "gantt-task-react";
-import { ViewSwitcher } from "./components/view-switcher";
-import { getStartEndDateForProject, initTasks } from "./helper";
+import {Task, TaskItem, BarTask, ViewMode, Gantt} from "gantt-task-react";
+import {ViewSwitcher} from "./components/view-switcher";
+import {getStartEndDateForProject, initTasks} from "./helper";
 import "gantt-task-react/dist/index.css";
+import {ganttDateRange, seedDates, Calendar} from "gantt-task-react";
 
 // Init
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
   } else if (view === ViewMode.Week) {
     columnWidth = 250;
   }
+  const [startDate, endDate] = ganttDateRange(tasks, view, 5);
 
   const handleTaskChange = (task: Task) => {
     console.log("On date change Id:" + task.id);
@@ -28,7 +30,7 @@ const App = () => {
         project.start.getTime() !== start.getTime() ||
         project.end.getTime() !== end.getTime()
       ) {
-        const changedProject = { ...project, start, end };
+        const changedProject = {...project, start, end};
         newTasks = newTasks.map(t =>
           t.id === task.project ? changedProject : t
         );
@@ -103,6 +105,49 @@ const App = () => {
         ganttHeight={300}
         columnWidth={columnWidth}
       />
+
+      <div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={1000}
+          height={300}
+          fontFamily={"helvetica"}
+        >
+          <Calendar dateSetup={{viewMode: view, dates: seedDates(startDate, endDate, view)}} columnWidth={40}
+                    viewMode={view} locale={"de-de"} rtl={false}
+                    fontFamily={"Arial, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue"}
+                    fontSize="14px" headerHeight={50}/>
+          <g className="bar">
+          <TaskItem task={{
+            index: 0,
+            styles: {
+              backgroundColor: "#b8c2cc",
+              backgroundSelectedColor: "#aeb8c2",
+              progressSelectedColor: "#8282f5",
+              progressColor: "#a3a3ff"
+            },
+            typeInternal: "task",
+            x1: 100,
+            x2: 200,
+            y: 100,
+            height: 40,
+            progressX: 100,
+            barChildren: [],
+            handleWidth: 3,
+            barCornerRadius: 3,
+            progressWidth: 20, ...tasks[0]
+          } as BarTask}
+                    arrowIndent={5}
+                    isDelete={false}
+                    taskHeight={50}
+                    isSelected={false}
+                    rtl={false}
+                    isDateChangeable={false}
+                    isProgressChangeable={false}
+                    onEventStart={() => 1}/>
+          </g>
+        </svg>
+      </div>
     </div>
   );
 };
