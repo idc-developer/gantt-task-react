@@ -1163,7 +1163,6 @@ var convertToBarTasks = function convertToBarTasks(tasks, dates, columnWidth, ro
   });
   return barTasks;
 };
-
 var convertToBarTask = function convertToBarTask(task, index, dates, columnWidth, rowHeight, taskHeight, barCornerRadius, handleWidth, rtl, barProgressColor, barProgressSelectedColor, barBackgroundColor, barBackgroundSelectedColor, projectProgressColor, projectProgressSelectedColor, projectBackgroundColor, projectBackgroundSelectedColor, milestoneBackgroundColor, milestoneBackgroundSelectedColor) {
   var barTask;
 
@@ -1183,7 +1182,6 @@ var convertToBarTask = function convertToBarTask(task, index, dates, columnWidth
 
   return barTask;
 };
-
 var convertToBar = function convertToBar(task, index, dates, columnWidth, rowHeight, taskHeight, barCornerRadius, handleWidth, rtl, barProgressColor, barProgressSelectedColor, barBackgroundColor, barBackgroundSelectedColor) {
   var x1;
   var x2;
@@ -1233,7 +1231,6 @@ var convertToBar = function convertToBar(task, index, dates, columnWidth, rowHei
     styles: styles
   });
 };
-
 var convertToMilestone = function convertToMilestone(task, index, dates, columnWidth, rowHeight, taskHeight, barCornerRadius, handleWidth, milestoneBackgroundColor, milestoneBackgroundSelectedColor) {
   var x = taskXCoordinate(task.start, dates, columnWidth);
   var y = taskYCoordinate(index, rowHeight, taskHeight);
@@ -1266,7 +1263,6 @@ var convertToMilestone = function convertToMilestone(task, index, dates, columnW
     styles: styles
   });
 };
-
 var taskXCoordinate = function taskXCoordinate(xDate, dates, columnWidth) {
   var index = dates.findIndex(function (d) {
     return d.getTime() >= xDate.getTime();
@@ -1276,18 +1272,15 @@ var taskXCoordinate = function taskXCoordinate(xDate, dates, columnWidth) {
   var x = index * columnWidth + percentOfInterval * columnWidth;
   return x;
 };
-
 var taskXCoordinateRTL = function taskXCoordinateRTL(xDate, dates, columnWidth) {
   var x = taskXCoordinate(xDate, dates, columnWidth);
   x += columnWidth;
   return x;
 };
-
 var taskYCoordinate = function taskYCoordinate(index, rowHeight, taskHeight) {
   var y = index * rowHeight + (rowHeight - taskHeight) / 2;
   return y;
 };
-
 var progressWithByParams = function progressWithByParams(taskX1, taskX2, progress, rtl) {
   var progressWidth = (taskX2 - taskX1) * progress * 0.01;
   var progressX;
@@ -1305,7 +1298,6 @@ var progressByProgressWidth = function progressByProgressWidth(progressWidth, ba
   var progressPercent = Math.round(progressWidth * 100 / barWidth);
   if (progressPercent >= 100) return 100;else if (progressPercent <= 0) return 0;else return progressPercent;
 };
-
 var progressByX = function progressByX(x, task) {
   if (x >= task.x2) return 100;else if (x <= task.x1) return 0;else {
     var barWidth = task.x2 - task.x1;
@@ -1313,7 +1305,6 @@ var progressByX = function progressByX(x, task) {
     return progressPercent;
   }
 };
-
 var progressByXRTL = function progressByXRTL(x, task) {
   if (x >= task.x2) return 0;else if (x <= task.x1) return 100;else {
     var barWidth = task.x2 - task.x1;
@@ -1321,12 +1312,10 @@ var progressByXRTL = function progressByXRTL(x, task) {
     return progressPercent;
   }
 };
-
 var getProgressPoint = function getProgressPoint(progressX, taskY, taskHeight) {
   var point = [progressX - 5, taskY + taskHeight, progressX + 5, taskY + taskHeight, progressX, taskY + taskHeight - 8.66];
   return point.join(",");
 };
-
 var startByX = function startByX(x, xStep, task) {
   if (x >= task.x2 - task.handleWidth * 2) {
     x = task.x2 - task.handleWidth * 2;
@@ -1337,7 +1326,6 @@ var startByX = function startByX(x, xStep, task) {
   var newX = task.x1 + additionalXValue;
   return newX;
 };
-
 var endByX = function endByX(x, xStep, task) {
   if (x <= task.x1 + task.handleWidth * 2) {
     x = task.x1 + task.handleWidth * 2;
@@ -1348,7 +1336,6 @@ var endByX = function endByX(x, xStep, task) {
   var newX = task.x2 + additionalXValue;
   return newX;
 };
-
 var moveByX = function moveByX(x, xStep, task) {
   var steps = Math.round((x - task.x1) / xStep);
   var additionalXValue = steps * xStep;
@@ -1356,13 +1343,11 @@ var moveByX = function moveByX(x, xStep, task) {
   var newX2 = newX1 + task.x2 - task.x1;
   return [newX1, newX2];
 };
-
 var dateByX = function dateByX(x, taskX, taskDate, xStep, timeStep) {
   var newDate = new Date((x - taskX) / xStep * timeStep + taskDate.getTime());
   newDate = new Date(newDate.getTime() + (newDate.getTimezoneOffset() - taskDate.getTimezoneOffset()) * 60000);
   return newDate;
 };
-
 var handleTaskBySVGMouseEvent = function handleTaskBySVGMouseEvent(svgX, action, selectedTask, xStep, timeStep, initEventX1Delta, rtl) {
   var result;
 
@@ -1378,7 +1363,6 @@ var handleTaskBySVGMouseEvent = function handleTaskBySVGMouseEvent(svgX, action,
 
   return result;
 };
-
 var handleTaskBySVGMouseEventForBar = function handleTaskBySVGMouseEventForBar(svgX, action, selectedTask, xStep, timeStep, initEventX1Delta, rtl) {
   var changedTask = _extends({}, selectedTask);
 
@@ -1484,7 +1468,6 @@ var handleTaskBySVGMouseEventForBar = function handleTaskBySVGMouseEventForBar(s
     changedTask: changedTask
   };
 };
-
 var handleTaskBySVGMouseEventForMilestone = function handleTaskBySVGMouseEventForMilestone(svgX, action, selectedTask, xStep, timeStep, initEventX1Delta) {
   var changedTask = _extends({}, selectedTask);
 
@@ -2765,7 +2748,12 @@ exports.TaskGantt = TaskGantt;
 exports.TaskItem = TaskItem;
 exports.TopPartOfCalendar = TopPartOfCalendar;
 exports.addToDate = addToDate;
+exports.convertToBar = convertToBar;
+exports.convertToBarTask = convertToBarTask;
 exports.convertToBarTasks = convertToBarTasks;
+exports.convertToMilestone = convertToMilestone;
+exports.dateByX = dateByX;
+exports.endByX = endByX;
 exports.ganttDateRange = ganttDateRange;
 exports.getCachedDateTimeFormat = getCachedDateTimeFormat;
 exports.getDaysInMonth = getDaysInMonth;
@@ -2774,13 +2762,22 @@ exports.getLocaleMonth = getLocaleMonth;
 exports.getProgressPoint = getProgressPoint;
 exports.getWeekNumberISO8601 = getWeekNumberISO8601;
 exports.handleTaskBySVGMouseEvent = handleTaskBySVGMouseEvent;
+exports.handleTaskBySVGMouseEventForBar = handleTaskBySVGMouseEventForBar;
+exports.handleTaskBySVGMouseEventForMilestone = handleTaskBySVGMouseEventForMilestone;
 exports.isBarTask = isBarTask;
 exports.isKeyboardEvent = isKeyboardEvent;
 exports.isMouseEvent = isMouseEvent;
+exports.moveByX = moveByX;
 exports.progressByProgressWidth = progressByProgressWidth;
+exports.progressByX = progressByX;
+exports.progressByXRTL = progressByXRTL;
 exports.progressWithByParams = progressWithByParams;
 exports.removeHiddenTasks = removeHiddenTasks;
 exports.seedDates = seedDates;
 exports.sortTasks = sortTasks;
+exports.startByX = startByX;
 exports.startOfDate = startOfDate;
+exports.taskXCoordinate = taskXCoordinate;
+exports.taskXCoordinateRTL = taskXCoordinateRTL;
+exports.taskYCoordinate = taskYCoordinate;
 //# sourceMappingURL=index.js.map
