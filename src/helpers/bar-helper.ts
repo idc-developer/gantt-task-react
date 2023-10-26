@@ -61,7 +61,7 @@ export const convertToBarTasks = (
   return barTasks;
 };
 
-const convertToBarTask = (
+export const convertToBarTask = (
   task: Task,
   index: number,
   dates: Date[],
@@ -136,7 +136,7 @@ const convertToBarTask = (
   return barTask;
 };
 
-const convertToBar = (
+export const convertToBar = (
   task: Task,
   index: number,
   dates: Date[],
@@ -200,7 +200,7 @@ const convertToBar = (
   };
 };
 
-const convertToMilestone = (
+export const convertToMilestone = (
   task: Task,
   index: number,
   dates: Date[],
@@ -246,7 +246,7 @@ const convertToMilestone = (
   };
 };
 
-const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number) => {
+export const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number) => {
   const index = dates.findIndex(d => d.getTime() >= xDate.getTime()) - 1;
 
   const remainderMillis = xDate.getTime() - dates[index].getTime();
@@ -255,7 +255,7 @@ const taskXCoordinate = (xDate: Date, dates: Date[], columnWidth: number) => {
   const x = index * columnWidth + percentOfInterval * columnWidth;
   return x;
 };
-const taskXCoordinateRTL = (
+export const taskXCoordinateRTL = (
   xDate: Date,
   dates: Date[],
   columnWidth: number
@@ -264,7 +264,7 @@ const taskXCoordinateRTL = (
   x += columnWidth;
   return x;
 };
-const taskYCoordinate = (
+export const taskYCoordinate = (
   index: number,
   rowHeight: number,
   taskHeight: number
@@ -300,7 +300,7 @@ export const progressByProgressWidth = (
   else return progressPercent;
 };
 
-const progressByX = (x: number, task: BarTask) => {
+export const progressByX = (x: number, task: BarTask) => {
   if (x >= task.x2) return 100;
   else if (x <= task.x1) return 0;
   else {
@@ -309,7 +309,7 @@ const progressByX = (x: number, task: BarTask) => {
     return progressPercent;
   }
 };
-const progressByXRTL = (x: number, task: BarTask) => {
+export const progressByXRTL = (x: number, task: BarTask) => {
   if (x >= task.x2) return 0;
   else if (x <= task.x1) return 100;
   else {
@@ -335,7 +335,7 @@ export const getProgressPoint = (
   return point.join(",");
 };
 
-const startByX = (x: number, xStep: number, task: BarTask) => {
+export const startByX = (x: number, xStep: number, task: BarTask) => {
   if (x >= task.x2 - task.handleWidth * 2) {
     x = task.x2 - task.handleWidth * 2;
   }
@@ -345,7 +345,7 @@ const startByX = (x: number, xStep: number, task: BarTask) => {
   return newX;
 };
 
-const endByX = (x: number, xStep: number, task: BarTask) => {
+export const endByX = (x: number, xStep: number, task: BarTask) => {
   if (x <= task.x1 + task.handleWidth * 2) {
     x = task.x1 + task.handleWidth * 2;
   }
@@ -355,7 +355,7 @@ const endByX = (x: number, xStep: number, task: BarTask) => {
   return newX;
 };
 
-const moveByX = (x: number, xStep: number, task: BarTask) => {
+export const moveByX = (x: number, xStep: number, task: BarTask) => {
   const steps = Math.round((x - task.x1) / xStep);
   const additionalXValue = steps * xStep;
   const newX1 = task.x1 + additionalXValue;
@@ -363,7 +363,7 @@ const moveByX = (x: number, xStep: number, task: BarTask) => {
   return [newX1, newX2];
 };
 
-const dateByX = (
+export const dateByX = (
   x: number,
   taskX: number,
   taskDate: Date,
@@ -417,7 +417,7 @@ export const handleTaskBySVGMouseEvent = (
   return result;
 };
 
-const handleTaskBySVGMouseEventForBar = (
+export const handleTaskBySVGMouseEventForBar = (
   svgX: number,
   action: BarMoveAction,
   selectedTask: BarTask,
@@ -552,7 +552,7 @@ const handleTaskBySVGMouseEventForBar = (
   return { isChanged, changedTask };
 };
 
-const handleTaskBySVGMouseEventForMilestone = (
+export const handleTaskBySVGMouseEventForMilestone = (
   svgX: number,
   action: BarMoveAction,
   selectedTask: BarTask,
